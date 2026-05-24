@@ -1,0 +1,13 @@
+{
+  "itemGroup.magicandsorcery": "Example Mod Tab",
+  "block.magicandsorcery.example_block": "Example Block",
+  "item.magicandsorcery.example_item": "Example Item",
+
+  "magicandsorcery.configuration.title": "Magic and Sorcery Configs",
+  "magicandsorcery.configuration.section.magicandsorcery.common.toml": "Magic and Sorcery Configs",
+  "magicandsorcery.configuration.section.magicandsorcery.common.toml.title": "Magic and Sorcery Configs",
+  "magicandsorcery.configuration.items": "Item List",
+  "magicandsorcery.configuration.logDirtBlock": "Log Dirt Block",
+  "magicandsorcery.configuration.magicNumberIntroduction": "Magic Number Text",
+  "magicandsorcery.configuration.magicNumber": "Magic Number"
+}
