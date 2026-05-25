@@ -1,6 +1,7 @@
 package com.omrron.magicandsorcery;
 
 import com.mojang.logging.LogUtils;
+import com.omrron.magicandsorcery.datagen.ModModelProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
@@ -60,12 +61,10 @@ public class MagicandSorcery {
     public MagicandSorcery(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::gatherData);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
@@ -78,6 +77,10 @@ public class MagicandSorcery {
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void gatherData(net.neoforged.neoforge.data.event.GatherDataEvent.Client event) {
+        event.createProvider(ModModelProvider::new);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
