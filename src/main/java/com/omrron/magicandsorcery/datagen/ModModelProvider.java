@@ -1,20 +1,48 @@
 package com.omrron.magicandsorcery.datagen;
 
 import com.omrron.magicandsorcery.MagicandSorcery;
+import com.omrron.magicandsorcery.registry.ModBlocks;
+import com.omrron.magicandsorcery.registry.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.renderer.block.dispatch.Variant;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.client.model.generators.loaders.ObjModelBuilder;
+import net.neoforged.neoforge.client.model.generators.template.ExtendedModelTemplateBuilder;
 
-import static com.omrron.magicandsorcery.MagicandSorcery.EXAMPLE_BLOCK;
-import static com.omrron.magicandsorcery.MagicandSorcery.EXAMPLE_ITEM;
 
 public class ModModelProvider extends ModelProvider {
 
     public ModModelProvider(PackOutput output) {
         super(output, MagicandSorcery.MODID);
     }
+
+    public static final TextureSlot CRYSTAL_BASE = TextureSlot.create("mana_crystal_base", TextureSlot.ALL);
+    public static final TextureSlot CRYSTAL_TOP = TextureSlot.create("mana_crystal_top", TextureSlot.ALL);
+
+    public static final ModelTemplate MANA_CRYSTAL_TEMPLATE = ExtendedModelTemplateBuilder.builder()
+            .customLoader(
+                    ObjModelBuilder::new,
+                    loader -> {
+                            loader.modelLocation(Identifier.fromNamespaceAndPath(MagicandSorcery.MODID, "models/block/mana_crystal.obj"));
+                            loader.flipV(true);
+                            loader.automaticCulling(false);
+                            loader.automaticCulling(false);
+                    }
+            )
+            .rootTransforms(transform -> transform.translation(0.5f, 0.0f, 0.5f))
+            .requiredTextureSlot(TextureSlot.PARTICLE)
+            .requiredTextureSlot(CRYSTAL_BASE)
+            .requiredTextureSlot(CRYSTAL_TOP)
+            .build();
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -23,10 +51,34 @@ public class ModModelProvider extends ModelProvider {
     }
 
     private void generateBlockModels(BlockModelGenerators blockModels) {
-        blockModels.createTrivialCube(EXAMPLE_BLOCK.get());
+        blockModels.createTrivialCube(ModBlocks.EXAMPLE_BLOCK.get());
+
+        Block manaCrystal = ModBlocks.MANA_CRYSTAL.get();
+        TextureMapping textures = new TextureMapping()
+                .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(manaCrystal, "_base"))
+                .put(CRYSTAL_BASE, TextureMapping.getBlockTexture(manaCrystal, "_base"))
+                .put(CRYSTAL_TOP, TextureMapping.getBlockTexture(manaCrystal, "_top"));
+
+
+        Identifier modelLoc = MANA_CRYSTAL_TEMPLATE.create(
+                manaCrystal,
+                textures,
+                blockModels.modelOutput
+        );
+
+        Variant variantModel = new Variant(modelLoc);
+
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(
+                        manaCrystal,
+                        BlockModelGenerators.variant(
+                                variantModel
+                        )
+                )
+        );
     }
 
     private void generateItemModels(ItemModelGenerators itemModels) {
-        itemModels.generateFlatItem(EXAMPLE_ITEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.EXAMPLE_ITEM.get(), ModelTemplates.FLAT_ITEM);
     }
 }

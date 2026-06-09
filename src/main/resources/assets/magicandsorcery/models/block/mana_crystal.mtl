@@ -1,0 +1,5 @@
+# Made in Blockbench 5.1.4
+newmtl mana_crystal_top
+map_Kd magicandsorcery:block/mana_crystal_top
+newmtl mana_crystal_base
+map_Kd magicandsorcery:block/mana_crystal_base
