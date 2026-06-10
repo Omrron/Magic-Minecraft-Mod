@@ -1,6 +1,7 @@
 package com.omrron.magicandsorcery.registry;
 
 import com.omrron.magicandsorcery.MagicandSorcery;
+import com.omrron.magicandsorcery.block.ManaCrystalBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
@@ -18,14 +19,15 @@ public class ModBlocks {
             p -> p.mapColor(MapColor.STONE)
     );
 
-    public static final DeferredBlock<Block> MANA_CRYSTAL = BLOCKS.registerSimpleBlock(
+    public static final DeferredBlock<Block> MANA_CRYSTAL = BLOCKS.registerBlock(
             "mana_crystal",
-            p -> p.mapColor(MapColor.LAPIS)
+            p -> new ManaCrystalBlock(p.mapColor(MapColor.LAPIS)
                     .destroyTime(3.0f)
                     .explosionResistance(3.0f)
                     .sound(SoundType.AMETHYST)
                     .requiresCorrectToolForDrops()
                     .lightLevel(state -> 7)
+                    .noOcclusion())
     );
 
 

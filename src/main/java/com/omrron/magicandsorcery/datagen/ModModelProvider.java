@@ -35,7 +35,6 @@ public class ModModelProvider extends ModelProvider {
                             loader.modelLocation(Identifier.fromNamespaceAndPath(MagicandSorcery.MODID, "models/block/mana_crystal.obj"));
                             loader.flipV(true);
                             loader.automaticCulling(false);
-                            loader.automaticCulling(false);
                     }
             )
             .rootTransforms(transform -> transform.translation(0.5f, 0.0f, 0.5f))
