@@ -79,5 +79,6 @@ public class ModModelProvider extends ModelProvider {
 
     private void generateItemModels(ItemModelGenerators itemModels) {
         itemModels.generateFlatItem(ModItems.EXAMPLE_ITEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.MANA_CRYSTAL_ITEM.get(), ModelTemplates.FLAT_ITEM);
     }
 }

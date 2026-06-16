@@ -22,7 +22,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> MANA_CRYSTAL = BLOCKS.registerBlock(
             "mana_crystal",
             p -> new ManaCrystalBlock(p.mapColor(MapColor.LAPIS)
-                    .destroyTime(3.0f)
+                    .destroyTime(1.5f)
                     .explosionResistance(3.0f)
                     .sound(SoundType.AMETHYST)
                     .requiresCorrectToolForDrops()

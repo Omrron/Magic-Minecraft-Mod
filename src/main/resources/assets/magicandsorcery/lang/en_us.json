@@ -1,7 +1,8 @@
 {
   "itemGroup.magicandsorcery": "Magic and Sorcery",
   "block.magicandsorcery.example_block": "High Res Stone",
-  "block.magicandsorcery.mana_crystal": "Mana Crystal",
+  "block.magicandsorcery.mana_crystal_block": "Mana Crystal",
+  "item.magicandsorcery.mana_crystal_item": "Mana Crystal",
   "item.magicandsorcery.example_item": "Example Item",
 
   "magicandsorcery.configuration.title": "Magic and Sorcery Configs",

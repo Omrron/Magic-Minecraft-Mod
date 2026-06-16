@@ -18,7 +18,12 @@ public class ModCreativeTabs {
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get());
-                output.accept(ModItems.MANA_CRYSTAL_ITEM.get());
+                ModItems.ITEMS.getEntries().forEach(item -> {
+                    output.accept((item.get()));
+                });
+
+                ModBlocks.BLOCKS.getEntries().forEach(block -> {
+                    output.accept((block.get()));
+                });
             }).build());
 }
