@@ -7,14 +7,17 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.block.dispatch.Variant;
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.neoforged.neoforge.client.model.generators.loaders.ObjModelBuilder;
 import net.neoforged.neoforge.client.model.generators.template.ExtendedModelTemplateBuilder;
 
@@ -70,15 +73,18 @@ public class ModModelProvider extends ModelProvider {
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(
                         manaCrystal,
-                        BlockModelGenerators.variant(
-                                variantModel
-                        )
+                        BlockModelGenerators.variant(variantModel)
+                ).with(
+                        PropertyDispatch.modify(RotatedPillarBlock.AXIS)
+                                .select(Direction.Axis.Y, BlockModelGenerators.NOP)
+                                .select(Direction.Axis.Z, BlockModelGenerators.X_ROT_90)
+                                .select(Direction.Axis.X, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
                 )
         );
     }
 
     private void generateItemModels(ItemModelGenerators itemModels) {
         itemModels.generateFlatItem(ModItems.EXAMPLE_ITEM.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.MANA_CRYSTAL_ITEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModBlocks.MANA_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
     }
 }

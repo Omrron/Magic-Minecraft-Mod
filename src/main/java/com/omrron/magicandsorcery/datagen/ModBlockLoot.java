@@ -17,8 +17,7 @@ public class ModBlockLoot extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        this.add(ModBlocks.MANA_CRYSTAL.get(),
-                block -> createOreDrop(block, ModItems.MANA_CRYSTAL_ITEM.get()));
+        this.dropSelf(ModBlocks.MANA_CRYSTAL.get());
         this.add(ModBlocks.EXAMPLE_BLOCK.get(), noDrop());
     }
 
