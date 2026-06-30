@@ -17,7 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.DirectionalBlock;
 import net.neoforged.neoforge.client.model.generators.loaders.ObjModelBuilder;
 import net.neoforged.neoforge.client.model.generators.template.ExtendedModelTemplateBuilder;
 
@@ -75,10 +75,13 @@ public class ModModelProvider extends ModelProvider {
                         manaCrystal,
                         BlockModelGenerators.variant(variantModel)
                 ).with(
-                        PropertyDispatch.modify(RotatedPillarBlock.AXIS)
-                                .select(Direction.Axis.Y, BlockModelGenerators.NOP)
-                                .select(Direction.Axis.Z, BlockModelGenerators.X_ROT_90)
-                                .select(Direction.Axis.X, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
+                        PropertyDispatch.modify(DirectionalBlock.FACING)
+                                .select(Direction.UP, BlockModelGenerators.NOP)
+                                .select(Direction.DOWN, BlockModelGenerators.X_ROT_180)
+                                .select(Direction.NORTH, BlockModelGenerators.X_ROT_90)
+                                .select(Direction.SOUTH, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180))
+                                .select(Direction.EAST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
+                                .select(Direction.WEST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270))
                 )
         );
     }
